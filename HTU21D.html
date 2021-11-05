@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+
+    <title>HTU21D</title>
+    <style>
+      html {
+        font-family: Arial, Helvetica, sans-serif;
+        display: inline-block;
+        margin: 0px auto;
+      }
+      h1 {
+        text-align: center;
+        font-size: 200%;
+        vertical-align: middle;
+      }
+      .htd-labels {
+        font-size: 200%;
+        padding-bottom: 15px;
+      }
+
+      .units {
+        font-size: 140%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>ESP32 HR SERVER</h1>
+
+    <p>
+      <i
+        class="fab fa-gratipay"
+        style="color: aqua; font-size: 300%; margin-left: 590px"
+      ></i>
+      <span class="htd-labels"> Heart Rate</span>
+      <span id="temperature">%HEARTRATE%</span>
+    </p>
+
+    <p>
+      <i
+        class="fas fa-thermometer-half"
+        style="color: aqua; font-size: 300%; margin-left: 600px"
+      ></i>
+      <span class="htd-labels"> Temperature</span>
+      <span id="temperature">%TEMPERATURE%</span>
+      <sup class="units">&deg;C</sup>
+    </p>
+
+    <p>
+      <i
+        class="fas fa-tint"
+        style="color: #00add6; font-size: 300%; margin-left: 600px"
+      ></i>
+      <span class="htd-labels"> Humidity</span>
+      <span id="temperature">%HUMIDITY%</span>
+      <sup class="units">&percnt;</sup>
+    </p>
+
+    <script>
+      setInterval(() => {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("temperature").innerHTML =
+              this.responseText;
+          }
+        };
+
+        xhttp.open("GET", "/temperature", true);
+        xhttp.send();
+      }, 5000);
+
+      setInterval(() => {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("humidity").innerHTML = this.responseText;
+          }
+        };
+
+        xhttp.open("GET", "/humidity", true);
+        xhttp.send();
+      }, 5000);
+    </script>
+  </body>
+</html>
